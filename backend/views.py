@@ -5,6 +5,8 @@ from .models import User, Conversation
 from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer
 from django.http import JsonResponse
 
+
+
 class Users(APIView):
     def get(self, requests, id):
         data = User.objects.filter(id=id) 
