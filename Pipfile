@@ -10,7 +10,6 @@ psycopg2 = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 openai = "*"
-django-allauth = "*"
 
 [dev-packages]
 
