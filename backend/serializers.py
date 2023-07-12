@@ -1,4 +1,4 @@
-from .models import User
+from .models import User, Conversation
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
@@ -7,6 +7,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta():
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email']
+
+class ConversationSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = Conversation
+        fields = "__all__"
 
 class TokenSerializer(TokenObtainPairSerializer):
     def get_token(self, user):
