@@ -19,6 +19,7 @@ class Conversations(APIView):
     
     def post(self, request, id):
         request.data['user'] = id
+        request.data['refraim'] = #OpenAI API call for refraim based on user prompt-- request.data['prompt']
         serializer = ConversationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
