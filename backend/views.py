@@ -17,6 +17,15 @@ class Conversations(APIView):
         serializer = ConversationSerializer(data, many=True)
         return JsonResponse(serializer.data, safe=False)
     
+    def post(self, request, id):
+        request.data['user'] = id
+        serializer = ConversationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse(serializer.errors)
+    
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
 
