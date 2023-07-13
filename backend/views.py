@@ -36,7 +36,6 @@ class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
 
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
     def post(self,request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
