@@ -4,8 +4,11 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User, Conversation
-from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer
+from .services import get_user, createToken
+from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer, GoogleAuthSerializer
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.conf import settings
 from .gpt import Gpt3
 from rest_framework.permissions import AllowAny
 
@@ -31,6 +34,20 @@ class Conversations(APIView):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse(serializer.errors)
+        
+class GoogleLoginView(APIView):
+    def get(self, request):
+        serializer = GoogleAuthSerializer(data=request.GET)
+        serializer.is_valid(raise_exception=True)
+        user_data = get_user(serializer.validated_data)
+
+        if User.objects.filter(email = user_data['email']).exists():
+            token = createToken(email=user_data['email'])
+            response = redirect(settings.BASE_APP_URL)
+            response.set_cookie('access_token', token, max_age=60 * 24 * 60 * 60)
+            return response
+
+        # Needs logic if user doesn't have existing refraim account
     
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
