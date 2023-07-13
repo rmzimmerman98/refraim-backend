@@ -4,12 +4,8 @@ from urllib.parse import urlencode
 from django.shortcuts import redirect
 import requests
 import jwt
-from jwt import decode
-from django.forms.models import model_to_dict
 from .models import User
-from django.http import JsonResponse
 from .serializers import UserSerializer
-import json
 
 GOOGLE_ACCESS_TOKEN_OBTAIN_URL = 'https://oauth2.googleapis.com/token'
 GOOGLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'

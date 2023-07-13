@@ -5,6 +5,8 @@ from .models import User, Conversation
 from .services import get_user, createToken
 from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer, GoogleAuthSerializer
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.conf import settings
 from .gpt import Gpt3
 
 class Users(APIView):
@@ -35,11 +37,13 @@ class GoogleLoginView(APIView):
         serializer.is_valid(raise_exception=True)
         user_data = get_user(serializer.validated_data)
 
-        print(user_data)
-
         if User.objects.filter(email = user_data['email']).exists():
             token = createToken(email=user_data['email'])
-            return token
+            response = redirect(settings.BASE_APP_URL)
+            response.set_cookie('access_token', token, max_age=60 * 24 * 60 * 60)
+            return response
+
+        # Needs logic if user doesn't have existing refraim account
     
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
