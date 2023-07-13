@@ -17,8 +17,11 @@ class TokenSerializer(TokenObtainPairSerializer):
     def get_token(self, user):
         token = super().get_token(user)
         token['username'] = user.username
-        print(token)
         return token
+    
+class GoogleAuthSerializer(serializers.Serializer):
+    code = serializers.CharField(required=False)
+    error = serializers.CharField(required=False)
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
