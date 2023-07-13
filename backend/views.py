@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import User, Conversation
-from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer
+from .serializers import UserSerializer, RegisterSerializer, TokenSerializer, ConversationSerializer, GoogleAuthSerializer
 from django.http import JsonResponse
 from .gpt import Gpt3
 
@@ -27,6 +27,13 @@ class Conversations(APIView):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse(serializer.errors)
+        
+class GoogleLoginView(APIView):
+    def get(self, request):
+        serializer = GoogleAuthSerializer(data=request.GET)
+        serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data)
+        return JsonResponse(serializer.validated_data, safe=False)
     
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
