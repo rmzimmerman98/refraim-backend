@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -49,6 +50,11 @@ class ConversationShow(APIView):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse(serializer.errors)
+        
+    def delete(self, request, id):
+        data = Conversation.objects.get(id=id)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
         
 class Favorites(APIView):
