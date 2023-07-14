@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -34,6 +35,33 @@ class Conversations(APIView):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse(serializer.errors)
+        
+class ConversationShow(APIView):
+    def get(self, request, id):
+        data = Conversation.objects.filter(id=id)
+        serializer = ConversationSerializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    
+    def put(self, request, id):
+        data = Conversation.objects.get(id=id)
+        serializer = ConversationSerializer(data, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse(serializer.errors)
+        
+    def delete(self, request, id):
+        data = Conversation.objects.get(id=id)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+        
+class Favorites(APIView):
+    def get(self, request, id):
+        data = Conversation.objects.filter(is_favorite=True)
+        serializer = ConversationSerializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
         
 class GoogleLoginView(APIView):
     def get(self, request):
