@@ -71,7 +71,7 @@ class GoogleLoginView(APIView):
 
         if User.objects.filter(email = user_data['email']).exists():
             token = createToken(email=user_data['email'])
-            response = redirect(settings.BASE_APP_URL)
+            response = redirect(f'{settings.BASE_APP_URL}/pre-prompt')
             response.set_cookie('access_token', token, max_age=60 * 24 * 60 * 60)
             return response
 
