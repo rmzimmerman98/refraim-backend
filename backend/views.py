@@ -35,6 +35,12 @@ class Conversations(APIView):
         else:
             return JsonResponse(serializer.errors)
         
+class Favorites(APIView):
+    def get(self, request, id):
+        data = Conversation.objects.filter(is_favorite=True)
+        serializer = ConversationSerializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
+        
 class GoogleLoginView(APIView):
     def get(self, request):
         serializer = GoogleAuthSerializer(data=request.GET)
