@@ -1,1 +1,1 @@
-web: gunicorn dnd_backend.wsgi
+web: gunicorn refraim.wsgi
