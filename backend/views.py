@@ -43,7 +43,7 @@ class ConversationShow(APIView):
         return JsonResponse(serializer.data, safe=False)
     
     def put(self, request, id):
-        data = Conversation.objects.filter(id=id)
+        data = Conversation.objects.get(id=id)
         serializer = ConversationSerializer(data, data=request.data)
         if serializer.is_valid():
             serializer.save()
