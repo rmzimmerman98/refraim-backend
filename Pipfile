@@ -9,6 +9,8 @@ python-dotenv = "*"
 psycopg2 = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+openai = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
