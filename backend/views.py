@@ -35,6 +35,22 @@ class Conversations(APIView):
         else:
             return JsonResponse(serializer.errors)
         
+class ConversationShow(APIView):
+    def get(self, request, id):
+        data = Conversation.objects.filter(id=id)
+        serializer = ConversationSerializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    
+    def put(self, request, id):
+        data = Conversation.objects.filter(id=id)
+        serializer = ConversationSerializer(data, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse(serializer.errors)
+
+        
 class Favorites(APIView):
     def get(self, request, id):
         data = Conversation.objects.filter(is_favorite=True)
