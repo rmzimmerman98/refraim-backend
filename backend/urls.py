@@ -6,5 +6,6 @@ urlpatterns = [
     path("register/", views.RegisterView.as_view(), name="registerShow"),
     path('token/', views.TokenView.as_view(), name="token_obtain_pair"),
     path('allconversations/<int:id>/', views.Conversations.as_view(), name="allconversations"),
-    path('googlelogin/', views.GoogleLoginView.as_view(), name="googlelogin")
+    path('allconversations/<int:id>/favorites/', views.Favorites.as_view(), name="favorites"),
+    path('googlelogin/', views.GoogleLoginView.as_view(), name="googlelogin"),
 ]
