@@ -16,7 +16,7 @@ This is the backend API Repository for Refraim. It utilizes Django's REST Framew
 
 ### OpenAI
 
-To create _Refraims_ for users, calls to OpenAI API with specific prompts are made. Here is an example of the Class used to create _Refraims_.
+To create _Refraims_ for users, calls to OpenAI API with specific prompts are made. Using ```allconversations/:id/``` as a POST route and passing a new prompt will make the OpenAI call. Here is an example of the Class used to create _Refraims_. 
 
 ```Python
 import openai
