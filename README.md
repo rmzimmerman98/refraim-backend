@@ -22,8 +22,7 @@ To create _Refraims_ for users, calls to OpenAI API with specific prompts are ma
 import openai
 from dotenv import load_dotenv
 import os
-load_dotenv()
-openai.api_key = os.getenv('OPENAI_API_KEY') 
+load_dotenv() 
 
 class Gpt3:
     def __init__(self):
