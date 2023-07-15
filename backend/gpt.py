@@ -8,7 +8,6 @@ class Gpt3:
     def __init__(self):
         self.openai = self.connect()
     def connect(self):
-        openai.organization = os.getenv('OPENAI_API_ORGA')
         openai.api_key = os.getenv('OPENAI_API_KEY')
         return openai
     def make_refraim(self, content):
