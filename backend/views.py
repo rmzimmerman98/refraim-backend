@@ -94,7 +94,7 @@ class RegisterView(APIView):
                     'email': user.email,
                     'first_name': user.first_name,
                     'last_name': user.last_name,
-                },
-            })
+                }, 
+            }, status=status.HTTP_201_CREATED)  # Here we specify the status code)
         else:
-            return JsonResponse(serializer.errors)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
