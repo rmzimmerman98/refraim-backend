@@ -24,7 +24,7 @@ class Gpt3:
             },
             {
             'role': 'user',
-            'content': f'Take the {content} and identify with the emotions and feelings that I might have. In a compassionate tone, state the negative thoughts and explain it in simple terms in one sentence. Offer a one or two sentence positive reframe.'
+            'content': f'Take the {content} and relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
             }
             
         ]
