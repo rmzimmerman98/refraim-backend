@@ -43,6 +43,7 @@ class ConversationShow(APIView):
         return JsonResponse(serializer.data, safe=False)
     
     def put(self, request, id):
+        request.data['conclusion'] = Gpt3.make_conclusion(request.data['prompt'], request.data['refraim'])
         data = Conversation.objects.get(id=id)
         serializer = ConversationSerializer(data, data=request.data)
         if serializer.is_valid():
