@@ -34,3 +34,28 @@ class Gpt3:
             temperature=0.3,
         )
         return response.choices[0]['message']['content']
+    def make_conclusion(self, prompt, refraim):
+        messages=[{
+            'role': 'system',
+            'content': 'I want you to help me reframe negative thoughts.'
+            },
+            {
+            'role': 'user',
+            'content': f'Content is : {prompt}'
+            },
+            {
+            'role': 'user',
+            'content': f'Reframe is : {refraim}'
+            },
+            {
+            'role': 'user',
+            'content': f'Take the {prompt} and the {refraim} and create a one-sentence positive reframe in the first person.'
+            }
+            
+        ]
+        response = self.openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=0.3,
+        )
+        return response.choices[0]['message']['content']
