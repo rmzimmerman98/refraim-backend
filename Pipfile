@@ -13,6 +13,7 @@ openai = "*"
 django-cors-headers = "*"
 gunicorn = "*"
 django-heroku = "*"
+whitenoise = "*"
 
 [dev-packages]
 
