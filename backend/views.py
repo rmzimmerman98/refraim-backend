@@ -29,6 +29,7 @@ class Conversations(APIView):
     def post(self, request, id):
         request.data['user'] = id
         request.data['refraim'] = Gpt3().make_refraim(request.data['prompt'])
+        request.data['conclusion'] = Gpt3().make_conclusion(request.data['prompt'], request.data['refraim'])
         serializer = ConversationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,6 +45,9 @@ class ConversationShow(APIView):
     
     def put(self, request, id):
         data = Conversation.objects.get(id=id)
+        if request.data['conclusion'] == 'resubmit':
+            request.data['refraim'] = Gpt3().make_accurate(request.data['prompt'], request.data['refraim'])
+            request.data['conclusion'] = Gpt3().make_conclusion(request.data['prompt'], request.data['refraim'])
         serializer = ConversationSerializer(data, data=request.data)
         if serializer.is_valid():
             serializer.save()

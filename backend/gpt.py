@@ -34,3 +34,53 @@ class Gpt3:
             temperature=0.3,
         )
         return response.choices[0]['message']['content']
+    def make_accurate(self, prompt, refraim):
+        messages=[{
+            'role': 'system',
+            'content': 'I want you to help me reframe negative thoughts.'
+            },
+            {
+            'role': 'user',
+            'content': f'Content is : {prompt}'
+            },
+            {
+            'role': 'user',
+            'content': f'Reframe is : {refraim}'
+            },
+            {
+            'role': 'user',
+            'content': f'The {refraim} created was not very accurate to the user. Take the {prompt} and more accuratly relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
+            }
+            
+        ]
+        response = self.openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=0.3,
+        )
+        return response.choices[0]['message']['content']
+    def make_conclusion(self, prompt, refraim):
+        messages=[{
+            'role': 'system',
+            'content': 'I want you to help me reframe negative thoughts.'
+            },
+            {
+            'role': 'user',
+            'content': f'Content is : {prompt}'
+            },
+            {
+            'role': 'user',
+            'content': f'Reframe is : {refraim}'
+            },
+            {
+            'role': 'user',
+            'content': f'Take the {prompt} and the {refraim} and create a one-sentence positive reframe in the first person.'
+            }
+            
+        ]
+        response = self.openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=0.3,
+        )
+        return response.choices[0]['message']['content']
