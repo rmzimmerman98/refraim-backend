@@ -45,7 +45,7 @@ class ConversationShow(APIView):
     
     def put(self, request, id):
         data = Conversation.objects.get(id=id)
-        if request.data['conclusion'] == 'resubmit':
+        if 'conclusion' in request.data and request.data['conclusion'] == 'resubmit':
             request.data['refraim'] = Gpt3().make_accurate(request.data['prompt'], request.data['refraim'])
             request.data['conclusion'] = Gpt3().make_conclusion(request.data['prompt'], request.data['refraim'])
         serializer = ConversationSerializer(data, data=request.data)

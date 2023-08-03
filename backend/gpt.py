@@ -49,7 +49,7 @@ class Gpt3:
             },
             {
             'role': 'user',
-            'content': f'The {refraim} created was not very accurate to the user. Take the {prompt} and more accuratly relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
+            'content': f'The {refraim} created was not very accurate to the user. Take the {prompt} and more accurately relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
             }
             
         ]
