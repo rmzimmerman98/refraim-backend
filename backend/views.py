@@ -48,6 +48,10 @@ class ConversationShow(APIView):
         if 'conclusion' in request.data and request.data['conclusion'] == 'resubmit':
             request.data['refraim'] = Gpt3().make_accurate(request.data['prompt'], request.data['refraim'])
             request.data['conclusion'] = Gpt3().make_conclusion(request.data['prompt'], request.data['refraim'])
+        if 'is_favorite' in request.data:
+         data.is_favorite = request.data['is_favorite']  # Update is_favorite field of conversation instance
+         data.save()
+
         serializer = ConversationSerializer(data, data=request.data)
         if serializer.is_valid():
             serializer.save()
