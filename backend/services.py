@@ -44,7 +44,7 @@ def get_user(validated_data):
     code = validated_data.get('code')
     error = validated_data.get('error')
 
-    login_url = f'{settings.BASE_APP_URL}/login' # need to get main login url
+    login_url = f'{settings.BASE_APP_URL}/welcome' # need to get main login url
 
     if error or not code:
         params = urlencode({'error': error})

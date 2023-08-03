@@ -1,4 +1,4 @@
-#!/Users/natalieperez/refraim_app/refraim-backend/env/bin/python3.10
+#!/Users/natalieperez/refraim_app/refraim-backend/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

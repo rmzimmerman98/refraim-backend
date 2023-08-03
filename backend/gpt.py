@@ -15,16 +15,66 @@ class Gpt3:
             'content': 'I want you to help me reframe negative thoughts.'
             },
             {"role": "user", 
-             "content" : "I'm not good enough"},
+             "content" : "I'm feeling misunderstood in my friendship with Bob. He always cancels on me when we make plans. Maybe I should just let go of him as a friend."},
             {"role": "assistant", 
-             "content" : "It appears that you might be experiencing the cognitive distortion known as 'all-or-nothing thinking' or 'black-and-white thinking.' \n This distortion involves seeing things in extremes, where you perceive yourself as either completely good or completely inadequate. \n Remember, it's important to challenge this distortion with more balanced thinking. \n Here are three positive reframes to consider: \n 1. I have unique strengths and qualities that make me valuable. \n 2. I am constantly growing and learning, and my worth is not defined by perfection. \n 3. I am deserving of love, acceptance, and compassion, just as I am."},
+             "content" : "I understand that you're feeling misunderstood in your friendship with Bob, and it seems like you're experiencing a cognitive distortion called 'all-or-nothing thinking.' By believing that Bob always cancels on you when you make plans, you're perceiving the situation in extreme terms without considering any exceptions or other factors that could be contributing to his cancellations. It might be helpful to have an open conversation with Bob about your feelings to gain a better understanding of what's going on and explore possible solutions together."},
             {
             'role': 'user',
             'content': f'Content is : {content}'
             },
             {
             'role': 'user',
-            'content': f'Take the {content} and identify a cognitive distortion that I might be suffering from. In a compassionate tone, state the cognitive distortion and explain it in simple terms in one sentence. Offer a one-sentence positive reframe.'
+            'content': f'Take the {content} and relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
+            }
+            
+        ]
+        response = self.openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=0.3,
+        )
+        return response.choices[0]['message']['content']
+    def make_accurate(self, prompt, refraim):
+        messages=[{
+            'role': 'system',
+            'content': 'I want you to help me reframe negative thoughts.'
+            },
+            {
+            'role': 'user',
+            'content': f'Content is : {prompt}'
+            },
+            {
+            'role': 'user',
+            'content': f'Reframe is : {refraim}'
+            },
+            {
+            'role': 'user',
+            'content': f'The {refraim} created was not very accurate to the user. Take the {prompt} and more accurately relate with the emotions and feelings that the user might have. In a compassionate tone, summarize the negative thoughts and explain it to to the user in a human way in one-two sentences while also concluding with a one or two sentence positive reframe. Provide this information in a human way.'
+            }
+            
+        ]
+        response = self.openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=0.3,
+        )
+        return response.choices[0]['message']['content']
+    def make_conclusion(self, prompt, refraim):
+        messages=[{
+            'role': 'system',
+            'content': 'I want you to help me reframe negative thoughts.'
+            },
+            {
+            'role': 'user',
+            'content': f'Content is : {prompt}'
+            },
+            {
+            'role': 'user',
+            'content': f'Reframe is : {refraim}'
+            },
+            {
+            'role': 'user',
+            'content': f'Take the {prompt} and the {refraim} and create a one-sentence positive reframe in the first person.'
             }
             
         ]
