@@ -67,7 +67,7 @@ class ConversationShow(APIView):
         
 class Favorites(APIView):
     def get(self, request, id):
-        data = Conversation.objects.filter(is_favorite=True)
+        data = Conversation.objects.filter(is_favorite=True, user_id=id)
         serializer = ConversationSerializer(data, many=True)
         return JsonResponse(serializer.data, safe=False)
         
